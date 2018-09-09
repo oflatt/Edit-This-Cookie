@@ -6,7 +6,10 @@ var pasteCookie = false;
 var currentLayout = "none";
 var lastInput = "";
 
-//chrome.storage.local.set({"cookies":[]});
+chrome.storage.local.get("cookies", function(item){
+    if(item.cookies == undefined){
+	chrome.storage.local.set({"cookies":[]});
+    }});
 
 $.fx.speeds._default = 200;
 
@@ -455,7 +458,8 @@ function setEvents() {
     });
 
     $("#optionsButton").unbind().click(function () {
-        var urlToOpen = chrome.extension.getURL('options_pages/visualizer.html');
+	var urlToOpen = chrome.extension.getURL('options_pages/visualizer.html');
+        //var urlToOpen = chrome.extension.getURL('options_main_page.html');
         chrome.tabs.create({
             url: urlToOpen
         });

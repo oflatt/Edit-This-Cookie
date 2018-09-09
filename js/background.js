@@ -52,12 +52,35 @@ chrome.cookies.onChanged.addListener(function (changeInfo) {
     var domain = cookie.domain;
     var value = cookie.value;
 
-    chrome.storage.local.get("cookies", function(item){
-		    chrome.storage.local.set({"cookies":[...item.cookies, cookie]})});
 
     if (cause === "expired" || cause === "evicted")
         return;
 
+    // add the changed cookie to the master list
+    chrome.storage.local.get("cookies", function(item){
+	if(cookie.domain.slice(0,1) === "."){
+	    cookie.domain = cookie.domain.slice(1, cookie.domain.length);
+	}
+	if(cookie.domain.slice(0, 4) === "www."){
+	    cookie.domain = cookie.domain.slice(4, cookie.domain.length);
+	}
+	
+	mlist = item.cookies.slice(0);
+	newname = cookie.domain;
+	var addp = true;
+	var i = 0;
+	for(i; i < mlist.length;i=i+1){
+	    if(mlist[i].domain === newname){
+		addp = false;
+		mlist[i].number = mlist[i].number+1;
+	    }
+	}
+	if(addp){
+	    cookie.number = 1;
+	    mlist.push(cookie);
+	}
+	chrome.storage.local.set({"cookies":mlist})});
+    
     for (var i = 0; i < data.readOnly.length; i++) {
         var currentRORule = data.readOnly[i];
         if (compareCookies(cookie, currentRORule)) {

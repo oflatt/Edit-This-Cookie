@@ -19,13 +19,12 @@ function runVisualizer(){
 	for (var i = 0; i < allSeenCookies.length; i++) { 
 	    console.log(allSeenCookies[i]);
 	    ctx.beginPath();
-	    var len = allSeenCookies[i].domain.length;
-	    ctx.arc(100,125 * (i + 1),35 + len,0,2*Math.PI);
+	    ctx.arc(100, 100 * (i + 1),35,0,2*Math.PI);
 	    ctx.stroke();
 	    ctx.fillStyle = "#d2b48c";
 	    ctx.fill();
 	    ctx.fillStyle = "#000000";
-	    ctx.fillText(allSeenCookies[i].domain, 100 - len * 2, 125 * (i + 1));
+	    ctx.fillText(allSeenCookies[i].domain, 100, 100 * (i + 1));
 	}});
 }
 

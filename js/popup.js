@@ -456,8 +456,8 @@ function setEvents() {
     });
 
     $("#optionsButton").unbind().click(function () {
-	var urlToOpen = chrome.extension.getURL('options_pages/visualizer.html');
-        //var urlToOpen = chrome.extension.getURL('options_main_page.html');
+	//var urlToOpen = chrome.extension.getURL('options_pages/visualizer.html');
+        var urlToOpen = chrome.extension.getURL('options_main_page.html');
         chrome.tabs.create({
             url: urlToOpen
         });

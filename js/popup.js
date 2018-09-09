@@ -6,6 +6,8 @@ var pasteCookie = false;
 var currentLayout = "none";
 var lastInput = "";
 
+//chrome.storage.local.set({"cookies":[]});
+
 $.fx.speeds._default = 200;
 
 jQuery(document).ready(function () {
@@ -182,8 +184,11 @@ function createList(filters, isSeparateWindow) {
                     }
                 }
                 filteredCookies.push(currentC);
+		chrome.storage.local.get("cookies", function(item){
+		    chrome.storage.local.set({"cookies":[...item.cookies, currentC]})});
             }
             cookieList = filteredCookies;
+	   
 
             $("#cookiesList").empty();
 
@@ -430,11 +435,10 @@ function setEvents() {
     }
 
     $("#refreshButton").unbind().click(function () {
-        if (currentLayout === "new") {
-            clearNewCookieData();
-        } else {
-            location.reload(true);
-        }
+        var urlToOpen = chrome.extension.getURL('visualizer.html');
+        chrome.tabs.create({
+            url: urlToOpen
+        });
     });
 
     $("#addCookieButton").unbind().click(function () {
@@ -450,7 +454,7 @@ function setEvents() {
     });
 
     $("#optionsButton").unbind().click(function () {
-        var urlToOpen = chrome.extension.getURL('options_main_page.html');
+        var urlToOpen = chrome.extension.getURL('visualizer.html');
         chrome.tabs.create({
             url: urlToOpen
         });

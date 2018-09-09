@@ -435,10 +435,11 @@ function setEvents() {
     }
 
     $("#refreshButton").unbind().click(function () {
-        var urlToOpen = chrome.extension.getURL('visualizer.html');
-        chrome.tabs.create({
-            url: urlToOpen
-        });
+        if (currentLayout === "new") {
+            clearNewCookieData();
+        } else {
+            location.reload(true);
+        }
     });
 
     $("#addCookieButton").unbind().click(function () {
@@ -454,7 +455,7 @@ function setEvents() {
     });
 
     $("#optionsButton").unbind().click(function () {
-        var urlToOpen = chrome.extension.getURL('visualizer.html');
+        var urlToOpen = chrome.extension.getURL('options_pages/visualizer.html');
         chrome.tabs.create({
             url: urlToOpen
         });

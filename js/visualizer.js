@@ -15,6 +15,7 @@ function runVisualizer(){
 	  ctx.fillText("foo bar", 100, 100);
 	  ctx.fillText("foo bar2", 100, 200);
 	*/
+	console.log(allSeenCookies);
 	for (var i = 0; i < allSeenCookies.length; i++) { 
 	    console.log(allSeenCookies[i]);
 	    ctx.beginPath();

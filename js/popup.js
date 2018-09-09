@@ -187,8 +187,6 @@ function createList(filters, isSeparateWindow) {
                     }
                 }
                 filteredCookies.push(currentC);
-		chrome.storage.local.get("cookies", function(item){
-		    chrome.storage.local.set({"cookies":[...item.cookies, currentC]})});
             }
             cookieList = filteredCookies;
 	   
@@ -258,7 +256,7 @@ function createAccordionList(cks, callback, callbackArguments) {
         var titleElement = $("<h3/>").append($("<a/>").html(titleText.html()).attr("href", "#"));
 
         var cookie = $(".cookie_details_template").clone().removeClass("cookie_details_template");
-
+	
         $(".index", cookie).val(i);
         $(".name", cookie).val(currentC.name);
         $(".value", cookie).val(currentC.value);

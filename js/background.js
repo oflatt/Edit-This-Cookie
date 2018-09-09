@@ -52,6 +52,9 @@ chrome.cookies.onChanged.addListener(function (changeInfo) {
     var domain = cookie.domain;
     var value = cookie.value;
 
+    chrome.storage.local.get("cookies", function(item){
+		    chrome.storage.local.set({"cookies":[...item.cookies, cookie]})});
+
     if (cause === "expired" || cause === "evicted")
         return;
 
